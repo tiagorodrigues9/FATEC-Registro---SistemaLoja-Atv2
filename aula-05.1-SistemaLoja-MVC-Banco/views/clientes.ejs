@@ -1,0 +1,97 @@
+<%- include('partials/header.ejs') %>
+<%- include('partials/navbar.ejs') %>
+
+<div class="container my-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-dark text-white">
+      <h2 class="mb-0">Cadastrar Cliente</h2>
+    </div>
+    <div class="card-body">
+      <form action="/clientes/new" method="post">
+        <div class="form-group mb-3">
+          <label for="nome">Nome do Cliente:</label>
+          <input 
+            type="text" 
+            name="nome" 
+            id="nome" 
+            class="form-control" 
+            placeholder="Insira o nome do cliente" 
+            required 
+          />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="cpf">CPF do Cliente:</label>
+          <input 
+            type="text" 
+            name="cpf" 
+            id="cpf" 
+            class="form-control" 
+            placeholder="Insira o CPF do cliente" 
+            required 
+          />
+        </div>
+
+        <div class="form-group mb-4">
+          <label for="endereco">Endereço do Cliente:</label>
+          <input 
+            type="text" 
+            name="endereco" 
+            id="endereco" 
+            class="form-control" 
+            placeholder="Insira o endereço do cliente" 
+            required 
+          />
+        </div>
+
+        <button type="submit" class="btn btn-info w-100">Cadastrar Cliente</button>
+      </form>
+      <hr />
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-secondary text-white">
+      <h2 class="mb-0">Lista de Clientes</h2>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th></th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Endereço</th>
+            <th colspan="2">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% clientes.forEach(cliente => { %>
+          <tr>
+            <td><img src="imgs/avatar.png" width="40px" alt="Cliente" class="img-thumbnail"></td>
+            <td><%= cliente.nome %></td>
+            <td><%= cliente.cpf %></td>
+            <td><%= cliente.endereco %></td>
+            <td>
+              <a href="/clientes/edit/<%= cliente.id %>" class="btn btn-warning btn-sm text-white">Editar</a>
+            </td>
+            <td>
+              <a 
+                href="/clientes/delete/<%= cliente.id %>" 
+                class="btn btn-danger btn-sm"
+                onclick="return confirm('Deseja realmente deletar o cliente <%= cliente.nome %>?')"
+              >
+                Deletar
+              </a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer.ejs') %>
